@@ -1,0 +1,2 @@
+FLASK_APP=myblogs
+FLASK_ENV=development

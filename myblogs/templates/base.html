@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    {% endblock head %}
+<head>
+<body>
+{% block nav %}
+{% endblock nav %}
+
+<main class="container">
+
+{% block content %}
+        <h1>Hello</h1>
+{% endblock content %}
+
+    {% block footer %}
+
+    {% endblock footer %}
+</main>
+{% block scripts %}
+{% endblock %}
+</body>
+</html>
