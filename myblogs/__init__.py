@@ -73,16 +73,43 @@ def register_errors(app):
     def internal_server_error(e):
         return render_template('errors/500.html'), 500
 
-
+# 注册自定义 shell 命令
 def register_commands(app):
+    # 初始化数据库
     @app.cli.command()
-    @click.option('--drop', is_flag=True, help='Create after drop.')
+    @click.option('--drop', is_flag=True, help='删除后重建.')
     def initdb(drop):
-        """Initialize the database."""
+        """初始化数据库."""
         if drop:
-            click.confirm('This operation will delete the database, do you want to continue?', abort=True)
+            click.confirm('此操作将删除数据库，是否要继续？', abort=True)
             db.drop_all()
-            click.echo('Drop tables.')
+            click.echo('删除表.')
         db.create_all()
-        click.echo('Initialized database.')
+        click.echo('初始化数据库.')
+
+    # 生成博客虚拟数据
+    @app.cli.command()
+    @click.option('--category', default=10, help='Quantity of categories, default is 10.')
+    @click.option('--post', default=50, help='Quantity of posts, default is 50.')
+    @click.option('--comment', default=500, help='Quantity of comments, default is 500.')
+    def forge(category, post, comment):
+        """生成虚拟数据."""
+        from myblogs.fakes import fake_admin, fake_categories, fake_posts, fake_comments
+
+        db.drop_all()
+        db.create_all()
+
+        click.echo('正在生成管理员数据...')
+        fake_admin()
+
+        click.echo('正在生成 %d 分类...' % category)
+        fake_categories(category)
+
+        click.echo('正在生成 %d 文章...' % post)
+        fake_posts(post)
+
+        click.echo('正在生成 %d 评论...' % comment)
+        fake_comments(comment)
+
+        click.echo('完成.')
 
