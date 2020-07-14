@@ -16,6 +16,10 @@ class BaseConfig(object):
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev key')
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_RECORD_QUERIES = True
+
+    CKEDITOR_ENABLE_CSRF = True
+
 
     MAIL_SEVER = os.getenv('MAIL_SERVER')
     MAIL_PORT = 465
@@ -28,6 +32,12 @@ class BaseConfig(object):
     MYBLOGS_POST_PER_PAGE = 10
     MYBLOGS_MANAGE_POST_PER_PAGE = 15
     MYBLOGS_COMMENT_PER_PAGE = 15
+    # ('theme name', 'display name')
+    MYBLOGS_THEMES = {'perfect_blue': '完美蓝', 'black_swan': '黑天鹅'}
+    MYBLOGS_SLOW_QUERY_THRESHOLD = 1
+
+    MYBLOGS_UPLOAD_PATH = os.path.join(basedir, 'uploads')
+    MYBLOGS_ALLOWED_IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
 
 
 #  开发环境配置

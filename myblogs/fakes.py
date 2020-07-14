@@ -13,7 +13,7 @@ def fake_admin():
         username = '管理员',
         blog_title = 'Blogs',
         blog_sub_title = "No,I'm the real thing.",
-        name = 'jadespring',
+        name = '博客管理员',
         about = 'Hello everyone'
     )
     db.session.add(admin)
@@ -42,6 +42,7 @@ def fake_categories(count=10):
 def fake_posts(count=50):
     for i in range(count):
         post = Post(
+            author=fake.name(),
             title=fake.sentence(),
             body=fake.text(2000),
             category=Category.query.get(random.randint(1, Category.query.count())),
@@ -81,7 +82,7 @@ def fake_comments(count=200):
 
         #管理员发表的评论
         comment = Comment(
-            author='jadespring',
+            author='博客管理员',
             email='liyuquanmail@163.com',
             site='jadespring.com',
             body=fake.sentence(),

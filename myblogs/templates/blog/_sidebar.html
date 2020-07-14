@@ -1,0 +1,13 @@
+{% if categories %}
+<div class="card mb-3">
+    <div class="card-header">文章分类</div>
+    <ul class="list-group list-group-flush">
+        {% for category in categories %}
+        <li class="list-group-item list-group-item-action d-flex justify-content-vetween align-items-center">
+            <a href="{{ url_for('blog.show_category', category_id=category.id) }}">{{ category.name }}</a>
+            <span class="badge badge-primary badge-pill" style="margin-left: 5px;">{{ category.posts|length }} </span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
